@@ -1,6 +1,6 @@
 // the services package holds all services that relate to business logic
 // Service Configuration Generator Pattern
-package services
+package order
 
 import (
 	"context"
@@ -17,8 +17,8 @@ import (
 type OrderConfiguration func(os *OrderService) error
 
 type OrderService struct {
-	customers customer.CustomerRepository
-	products  product.ProductRepository
+	customers customer.Repository
+	products  product.Repository
 }
 
 func NewOrderService(cfgs ...OrderConfiguration) (*OrderService, error) {
@@ -35,7 +35,7 @@ func NewOrderService(cfgs ...OrderConfiguration) (*OrderService, error) {
 }
 
 // WithCustomerRepository applies a customer repository to the OrderService
-func WithCustomerRepository(cr customer.CustomerRepository) OrderConfiguration {
+func WithCustomerRepository(cr customer.Repository) OrderConfiguration {
 	// Return a function that matches the orderconfiguration alias
 	return func(os *OrderService) error {
 		os.customers = cr
@@ -97,4 +97,17 @@ func (o *OrderService) CreateOrder(customerID uuid.UUID, productIDs []uuid.UUID)
 	}
 	log.Printf("Customer: %s has ordered %d products. The total price is $%v.", c.GetID(), len(products), totalPrice)
 	return totalPrice, nil
+}
+
+func (o *OrderService) AddCustomer(name string) (uuid.UUID, error) {
+	c, err := customer.NewCustomer(name)
+	if err != nil {
+		return uuid.Nil, err
+	}
+
+	err = o.customers.Add(c)
+	if err != nil {
+		return uuid.Nil, err
+	}
+	return c.GetID(), nil
 }

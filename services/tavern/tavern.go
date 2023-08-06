@@ -1,16 +1,17 @@
-package services
+package tavern
 
 import (
 	"log"
 
 	"github.com/google/uuid"
+	"github.com/rawsashimi1604/tavern/services/order"
 )
 
 type TavernConfiguration func(ts *Tavern) error
 
 type Tavern struct {
 	// OrderService to take orders
-	OrderService *OrderService
+	OrderService *order.OrderService
 
 	// BillingService to take payments
 	BillingService interface{}
@@ -28,7 +29,7 @@ func NewTavern(cfgs ...TavernConfiguration) (*Tavern, error) {
 	return t, nil
 }
 
-func WithOrderService(os *OrderService) TavernConfiguration {
+func WithOrderService(os *order.OrderService) TavernConfiguration {
 	return func(t *Tavern) error {
 		t.OrderService = os
 		return nil
