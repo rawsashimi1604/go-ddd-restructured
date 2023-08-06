@@ -4,7 +4,7 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/rawsashimi1604/go-ddd/domain/customer"
+	"github.com/rawsashimi1604/tavern/domain/customer"
 )
 
 func TestCustomer_NewCustomer(t *testing.T) {

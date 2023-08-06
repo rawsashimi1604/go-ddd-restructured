@@ -6,7 +6,7 @@ import (
 	"sync"
 
 	"github.com/google/uuid"
-	"github.com/rawsashimi1604/go-ddd/domain/customer"
+	"github.com/rawsashimi1604/tavern/domain/customer"
 )
 
 type MemoryCustomerRepository struct {

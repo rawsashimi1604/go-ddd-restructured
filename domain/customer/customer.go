@@ -5,8 +5,7 @@ import (
 	"errors"
 
 	"github.com/google/uuid"
-	"github.com/rawsashimi1604/go-ddd/entity"
-	"github.com/rawsashimi1604/go-ddd/valueobject"
+	"github.com/rawsashimi1604/tavern"
 )
 
 var (
@@ -19,9 +18,9 @@ type Customer struct {
 
 	// Small case -> external cannot use.
 	// Not accessible directly to the other data. Not accessible from outside.
-	person       *entity.Person
-	products     []*entity.Item
-	transactions []valueobject.Transaction
+	person       *tavern.Person
+	products     []*tavern.Item
+	transactions []tavern.Transaction
 }
 
 // NewCustomer is a factory to create a new customer aggregate
@@ -31,15 +30,15 @@ func NewCustomer(name string) (Customer, error) {
 		return Customer{}, ErrInvalidPerson
 	}
 
-	person := &entity.Person{
+	person := &tavern.Person{
 		Name: name,
 		ID:   uuid.New(),
 	}
 
 	return Customer{
 		person:       person,
-		products:     make([]*entity.Item, 0),
-		transactions: make([]valueobject.Transaction, 0),
+		products:     make([]*tavern.Item, 0),
+		transactions: make([]tavern.Transaction, 0),
 	}, nil
 }
 
@@ -49,7 +48,7 @@ func (c *Customer) GetID() uuid.UUID {
 
 func (c *Customer) SetID(id uuid.UUID) {
 	if c.person == nil {
-		c.person = &entity.Person{}
+		c.person = &tavern.Person{}
 	}
 
 	c.person.ID = id
@@ -61,7 +60,7 @@ func (c *Customer) GetName() string {
 
 func (c *Customer) SetName(name string) {
 	if c.person == nil {
-		c.person = &entity.Person{}
+		c.person = &tavern.Person{}
 	}
 	c.person.Name = name
 }

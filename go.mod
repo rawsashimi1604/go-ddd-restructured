@@ -1,4 +1,4 @@
-module github.com/rawsashimi1604/go-ddd
+module github.com/rawsashimi1604/tavern
 
 go 1.20
 

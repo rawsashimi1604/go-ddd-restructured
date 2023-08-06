@@ -7,12 +7,11 @@ import (
 	"log"
 
 	"github.com/google/uuid"
-	"github.com/rawsashimi1604/go-ddd/aggregate"
-	"github.com/rawsashimi1604/go-ddd/domain/customer"
-	"github.com/rawsashimi1604/go-ddd/domain/customer/memory"
-	"github.com/rawsashimi1604/go-ddd/domain/customer/mongo"
-	"github.com/rawsashimi1604/go-ddd/domain/product"
-	prodmem "github.com/rawsashimi1604/go-ddd/domain/product/memory"
+	"github.com/rawsashimi1604/tavern/domain/customer"
+	"github.com/rawsashimi1604/tavern/domain/customer/memory"
+	"github.com/rawsashimi1604/tavern/domain/customer/mongo"
+	"github.com/rawsashimi1604/tavern/domain/product"
+	prodmem "github.com/rawsashimi1604/tavern/domain/product/memory"
 )
 
 type OrderConfiguration func(os *OrderService) error
@@ -60,7 +59,7 @@ func WithMongoCustomerRepository(ctx context.Context, connectionString string) O
 	}
 }
 
-func WithMemoryProductRepository(products []aggregate.Product) OrderConfiguration {
+func WithMemoryProductRepository(products []product.Product) OrderConfiguration {
 	return func(os *OrderService) error {
 		pr := prodmem.New()
 
@@ -83,7 +82,7 @@ func (o *OrderService) CreateOrder(customerID uuid.UUID, productIDs []uuid.UUID)
 	}
 
 	// Get each product
-	var products []aggregate.Product
+	var products []product.Product
 	var totalPrice float64
 
 	for _, id := range productIDs {

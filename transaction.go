@@ -1,5 +1,5 @@
 // Package entities holds all the value objects that are shared across subdomains
-package valueobject
+package tavern
 
 import (
 	"time"
