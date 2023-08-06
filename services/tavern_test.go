@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/google/uuid"
-	"github.com/rawsashimi1604/go-ddd/aggregate"
+	"github.com/rawsashimi1604/go-ddd/domain/customer"
 )
 
 func Test_Tavern(t *testing.T) {
@@ -26,7 +26,7 @@ func Test_Tavern(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	cust, err := aggregate.NewCustomer("Percy")
+	cust, err := customer.NewCustomer("Percy")
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -5,6 +5,7 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/rawsashimi1604/go-ddd/aggregate"
+	"github.com/rawsashimi1604/go-ddd/domain/customer"
 )
 
 func initProducts(t *testing.T) []aggregate.Product {
@@ -40,7 +41,7 @@ func TestOrder_NewOrderService(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	cust, err := aggregate.NewCustomer("Percy")
+	cust, err := customer.NewCustomer("Percy")
 	if err != nil {
 		t.Error(err)
 	}
